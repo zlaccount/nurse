@@ -1,14 +1,14 @@
 <template>
   <div class="tab">
     <van-tabbar v-model="active">
-      <van-tabbar-item to='/bed'>
+      <!-- <van-tabbar-item to='/bed'>
         <span>陪护床</span>
         <img
           slot="icon"
           slot-scope="props"
           :src="props.active ? icon.bed.active : icon.bed.normal"
         >
-      </van-tabbar-item>
+      </van-tabbar-item> -->
       <van-tabbar-item to='/operation'>
         <span>陪护床</span>
         <img
@@ -25,7 +25,7 @@
           :src="props.active ? icon.manage.active : icon.manage.normal"
         >
       </van-tabbar-item>
-      <van-tabbar-item to='/audit'>
+      <!-- <van-tabbar-item to='/audit'>
         <span>审核</span>
         <img
           slot="icon"
@@ -40,7 +40,7 @@
           slot-scope="props"
           :src="props.active ? icon.maintenance.active : icon.maintenance.normal"
         >
-      </van-tabbar-item>
+      </van-tabbar-item> -->
       <van-tabbar-item
         to='/my'
         icon="contact"
@@ -101,18 +101,12 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.fullPath === '/bed') {
+    if (this.$route.fullPath === '/operation') {
       this.active = 0
-    } else if (this.$route.fullPath === '/operation') {
-      this.active = 1
     } else if (this.$route.fullPath === '/nurse') {
-      this.active = 2
-    } else if (this.$route.fullPath === '/audit') {
-      this.active = 3
-    } else if (this.$route.fullPath === '/maintenance') {
-      this.active = 4
+      this.active = 1
     } else {
-      this.active = 5
+      this.active = 2
     }
   }
 }

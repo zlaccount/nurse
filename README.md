@@ -1,6 +1,6 @@
-# ehaot
+# nurse
 
-> 智能陪护床
+> 智能陪护床护士端
 
 ## Build Setup
 
