@@ -1,8 +1,10 @@
 <template>
   <transition name="date">
     <div class="month">
-      <month-picker @select="selectSinger"
-                    :data="monthData"></month-picker>
+      <month-picker
+        @select="selectSinger"
+        :data="monthData"
+      ></month-picker>
       <router-view></router-view>
     </div>
   </transition>
@@ -92,7 +94,8 @@ export default {
       return hot.concat(ret)
     },
     ...mapMutations({
-      setSinger: 'SET_SINGER'
+      setSinger: 'SET_SINGER',
+      setDateTime: "SET_DATE_TIME",
     })
   },
   components: {

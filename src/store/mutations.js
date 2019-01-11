@@ -27,6 +27,10 @@ const mutations = {
   //选择医院 
   [types.SET_HOSPITAL](state, hospital) {
     state.hospital = hospital
+  },
+  //选择日期
+  [types.SET_DATE_TIME](state, dateTime) {
+    state.dateTime = dateTime
   }
 
 

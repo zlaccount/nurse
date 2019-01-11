@@ -278,7 +278,7 @@ export default {
       this.copyMinDate = { ...this.splitDate(this.minDate) }
       this.copyMaxDate = { ...this.splitDate(this.maxDate) }
       this.selectDate = { ...this.showDate }
-      console.log('selectDate', this.selectDate)
+      // console.log('selectDate', this.selectDate)
     },
     splitDate(date, addStr) {
       let result = {}
@@ -388,7 +388,7 @@ export default {
         return
       }
       this.resetSelectDate(day.value)
-      console.log('day', day)
+      // console.log('day', day)
     },
     selectYear(value) {
       this.showYear = false

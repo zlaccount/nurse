@@ -72,10 +72,10 @@ export function bedStatistical() {
 
 
 // 某年、月、日统计接口
-export function bedSelectTime() {
+export function bedSelectTime(date) {
   const url = 'bed/rent/app/time'
   const data = Object.assign({}, {
-    date: "2016-12",
+    date: date,
     subName: "儿童保健科",
     hospitalId: "030b7bef56fe5f783357075d6264fe22"
   })

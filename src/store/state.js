@@ -6,7 +6,8 @@ const state = {
   beddirections: false,
   orderState: true,
   order:{},
-  hospital:''
+  hospital:'',
+  dateTime:''
 }
 
 export default state

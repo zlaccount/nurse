@@ -1,21 +1,27 @@
 <!--  -->
 <template>
-    <div class='datewrapper'>
-      <div @click="openDatePicker"
-           class="dateCon">{{selectedDate}}</div>
-      <date-picker v-if="showDatePicker"
-                   :date="date"
-                   :min-date="minDate"
-                   :max-date="maxDate"
-                   @confirm="confirm"
-                   @cancel="cancel"></date-picker>
-    </div>
+  <div class='datewrapper'>
+    <!-- <div
+      @click="openDatePicker"
+      class="dateCon"
+    >{{selectedDate}}</div> -->
+    <date-picker
+      v-if="showDatePicker"
+      :date="date"
+      :min-date="minDate"
+      :max-date="maxDate"
+      @confirm="confirm"
+      @cancel="cancel"
+    ></date-picker>
+  </div>
 </template>
 
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 import DatePicker from 'base/DatePicker/DatePicker'
+import { mapMutations } from "vuex";
+import common from 'common/js/common.js'
 
 export default {
   // import引入的组件需要注入到对象中才能使用
@@ -41,15 +47,17 @@ export default {
       let now = nowDate.trim().split(' ')
       this.date = now[0]
       this.nowTime = now[1]
-      console.log(this.date)
-      console.log(this.nowTime)
     },
-    openDatePicker() {
-      this.showDatePicker = true
-    },
+    // openDatePicker() {
+    //   this.showDatePicker = true
+    // },
     confirm(value) {
       this.showDatePicker = false
-      this.selectedDate = value
+      // this.setDateTime(value.date)
+      common.$emit('selectedTime', value.date);
+      this.$router.go(-1);
+      // console.log(value.date)
+      // this.selectedDate = value
     },
     cancel() {
       this.showDatePicker = false
@@ -67,7 +75,10 @@ export default {
       var currentDate = date.getFullYear() + '-' + month + '-' + strDate +
         ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
       return currentDate
-    }
+    },
+    ...mapMutations({
+      setDateTime: "SET_DATE_TIME",
+    })
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created() {

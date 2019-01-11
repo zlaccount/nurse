@@ -12,3 +12,7 @@ export const order = state => state.order
 export const beddirections = state => state.beddirections
 // 选择医院
 export const hospital = state => state.hospital
+
+// 选择日期
+export const dateTime = state => state.dateTime
+

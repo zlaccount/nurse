@@ -67,29 +67,15 @@ export default {
       if (that.curVal.length === that.keyLis.length) {
         var val = that.curVal * 1
         //接口对接
-
-        // handSerial().then(res => {
-        //   // console.log(res[0].chaperonageBedBindingState)
-        //   if (res.length === 1) {
-        //     Toast('编号已绑定，请勿重新绑定');
-        //     return false
-        //   }
-        //   // common.$emit('handresult',0);
-        //   this.$router.go(-1);
-        // })
-        // if (val === 111111) {
-        //   that.dataType = 1
-        //    common.$emit('handresult', that.dataType);
-        // }
-        // if (val === 222222) {
-        //   that.dataType = 2
-        //    common.$emit('handresult', that.dataType);
-        // }
-        // if (val === 333333) {
-        //   that.dataType = 0
-        //    common.$emit('handresult', that.dataType);
-        // }
-
+        handSerial().then(res => {
+          // console.log(res[0].chaperonageBedBindingState)
+          if (res.length === 1) {
+            Toast('编号已绑定，请勿重新绑定');
+            return false
+          }
+          // common.$emit('handresult',0);
+          this.$router.go(-1);
+        })
         that.keyValue = []
       }
     }

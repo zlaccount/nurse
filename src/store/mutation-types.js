@@ -12,3 +12,6 @@ export const SET_ORDER = 'SET_ORDER'
 export const SET_DIRECTIONS = 'SET_DIRECTIONS'
 // 选择医院
 export const SET_HOSPITAL = 'SET_HOSPITAL'
+
+// 选择日期
+export const SET_DATE_TIME = 'SET_DATE_TIME'
