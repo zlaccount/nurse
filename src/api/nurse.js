@@ -54,7 +54,7 @@ export function bedDetail() {
     return Promise.resolve(res.data)
   })
 }
-// 统计所有数据接口
+// 9.陪护床租床及费用统计接口（公众号）
 export function bedStatistical() {
   const url = 'bed/rent/queryList'
   const data = Object.assign({}, {
@@ -78,6 +78,27 @@ export function bedSelectTime(date) {
     date: date,
     subName: "儿童保健科",
     hospitalId: "030b7bef56fe5f783357075d6264fe22"
+  })
+
+  return axios.get(url, {
+    params: data
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  })
+}
+
+// 11.陪护床监测接口
+export function monitoring(date) {
+  const url = 'bed/monitor/queryList'
+  const data = Object.assign({}, {
+    currentPage: "1",
+    pageSize: "10",
+    subName: "儿童保健科",
+    hospitalId: "030b7bef56fe5f783357075d6264fe22",
+    lockState: "",
+    bedEnergy: "",
+    bedFlow: "",
+    serviceTime: ""
   })
 
   return axios.get(url, {

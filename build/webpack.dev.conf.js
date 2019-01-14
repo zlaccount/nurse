@@ -55,20 +55,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     disableHostCheck: true,
     before(app) {
       /* 反向代理跨域获取歌手列表数据 */
-      // app.get('/api/getOpenLock', function (req, res) {
-      //   var url = 'http://192.168.1.7:8080/app/chaperone_bed/user/openLock' // 原歌手列表接口的api
-      //   axios.get(url, {
-      //     headers: {
-      //       referer: 'http://192.168.1.7:8080',
-      //       host: '127.0.0.1:8080'
-      //     },
-      //     params: req.query
-      //   }).then((response) => {
-      //     res.json(response.data)
-      //   }).catch((e) => {
-      //     console.log(e)
-      //   })
-      // })
+       app.get('/api/getSingerList', function (req, res) {
+         var url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg' // 原歌手列表接口的api
+         axios.get(url, {
+           headers: {
+             referer: 'https://c.y.qq.com',
+             host: 'c.y.qq.com'
+           },
+           params: req.query
+         }).then((response) => {
+           res.json(response.data)
+         }).catch((e) => {
+           console.log(e)
+         })
+       })
     }
   },
   plugins: [

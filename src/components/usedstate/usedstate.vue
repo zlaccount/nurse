@@ -14,35 +14,35 @@
         >
           <div class="gray"></div>
           <van-cell
-            v-if="item.payState == 0"
-            value="已完成"
+            v-if="item.lockState == 0"
+            value="未知异常"
             value-class="itemFinished"
           >
             <template slot="title">
               <div class="custom-text">
-                订单编号 : {{ item.order_id }}
+                订单编号 : {{ item.bedCode }}
               </div>
             </template>
           </van-cell>
           <van-cell
-            v-if="item.payState == 1"
-            value="未完成"
+            v-if="item.lockState == 1"
+            value="开启"
             value-class="itemWaitPay"
           >
             <template slot="title">
               <div class="custom-text">
-                订单编号 : {{ item.order_id }}
+                订单编号 : {{ item.bedCode }}
               </div>
             </template>
           </van-cell>
           <van-cell
-            v-if="item.payState == 2"
-            value="待审核"
+            v-if="item.lockState == 2"
+            value="关闭"
             value-class="itemAudit"
           >
             <template slot="title">
               <div class="custom-text">
-                订单编号 : {{ item.order_id }}
+                订单编号 : {{ item.bedCode }}
               </div>
             </template>
           </van-cell>
@@ -50,10 +50,10 @@
             <van-cell>
               <template slot="title">
                 <div class="custom-text">
-                  医院 : {{ item.hospitalName }}
+                  陪护床编号 : {{ item.bedCode }}
                 </div>
                 <div class="custom-text">
-                  科室 : {{ item.departmentName }}
+                  病床号 : {{ item.bedNumber }}
                 </div>
                 <div class="custom-text">
                   开始时间 : {{ item.startTime }}
@@ -63,6 +63,12 @@
                 </div>
                 <div class="custom-text">
                   时长 : {{ item.serviceTime }}
+                </div>
+                <div class="custom-text">
+                  电量 : {{ item.bedEnergy }}
+                </div>
+                <div class="custom-text">
+                  流量 : {{ item.bedFlow }}
                 </div>
                 <div class="link">
                   <van-icon name="arrow" />

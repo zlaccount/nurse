@@ -1,86 +1,24 @@
 <!--  -->
 <template>
   <div class="myView">
-    <!-- 个人资料 -->
-    <div class="Msg">
-      <van-row>
-        <van-col span="12">
-          <van-button
-            size="normal"
-            @click="person"
-          >
-            <div class="person">
-              <img
-                :src="accountImage || this.localImgUrl"
-                slot="right"
-                class="seeImg"
-              />
-            </div>
-            <div class="personText">
-              <p>{{ accountName || "新用户注册" }}</p>
-              <span>个人资料
-                <van-icon name="arrow" /></span>
-            </div>
-          </van-button>
-        </van-col>
-        <van-col span="12">
-          <van-button></van-button>
-        </van-col>
-      </van-row>
-    </div>
-    <div
-      class="account"
-      v-show="this.indexIsHide == 0"
-    >
-      <van-row>
-        <van-col span="12">
-          <van-button
-            size="normal"
-            @click="balance"
-          >
-            <span>{{ accountBalance || "0.0" }}</span>
-            <span>我的余额</span>
-          </van-button>
-        </van-col>
-        <van-col span="12">
-          <van-button @click="depositManger">
-            <span>58</span> <span>我的押金</span>
-          </van-button>
-        </van-col>
-      </van-row>
-    </div>
+    <div class="gray"></div>
     <div class="cellLink">
       <!-- 我的订单 -->
       <van-cell
         is-link
-        @click="order"
-        v-show="this.indexIsHide == 0"
+        @click="balance"
       >
         <template slot="title">
           <img
-            :src="icon.Theorder"
+            :src="icon.myBalance"
             slot="right"
             class="leftIcon"
           />
-          <span class="custom-text">我的订单</span>
+          <span class="custom-text">我的账户</span>
         </template>
       </van-cell>
+      <div class="gray"></div>
 
-      <!-- 待付款 -->
-      <van-cell
-        is-link
-        @click="ItemWaitPay"
-        v-show="this.indexIsHide == 0"
-      >
-        <template slot="title">
-          <img
-            :src="icon.waitpay"
-            slot="right"
-            class="leftIcon"
-          />
-          <span class="custom-text">待付款</span>
-        </template>
-      </van-cell>
       <!-- 客服服务 -->
       <van-cell
         is-link
@@ -95,6 +33,7 @@
           <span class="custom-text">客服服务</span>
         </template>
       </van-cell>
+      <div class="gray"></div>
 
       <!-- 帮助 -->
       <van-cell
@@ -157,6 +96,7 @@ import help_active from "../../../static/img_icon/icon_help.png";
 import waitpay_active from "../../../static/img_icon/icon_waitpay.png";
 import iconwode_active from "../../../static/img_icon/icon-wode.png";
 import Theorder_active from "../../../static/img_icon/Theorder.png";
+import icon_my_active from '../../../static/img_icon/icon-wode2-mall@2x.png'
 
 export default {
   // import引入的组件需要注入到对象中才能使用
@@ -186,7 +126,8 @@ export default {
         help: help_active,
         waitpay: waitpay_active,
         iconwode: iconwode_active,
-        Theorder: Theorder_active
+        Theorder: Theorder_active,
+        myBalance: icon_my_active
       }
     };
   },
@@ -474,10 +415,16 @@ export default {
 
   // 退出登录
   .backLogin {
+    width: 80%;
+    margin: 0 auto;
+
     .van-button {
       width: 100%;
       font-size: 15px;
       margin-top: 10px;
+      background: #4fd6bc;
+      color: #fff;
+      border-radius: 5px;
     }
   }
 }
