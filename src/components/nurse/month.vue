@@ -28,8 +28,8 @@ export default {
     this._getData()
   },
   methods: {
-    selectOrder(singer) {
-      console.log(11111)
+    selectOrder(item) {
+      console.log(item)
       // this.$router.push({
       //   path: `/singer/${singer.id}`
       // })
