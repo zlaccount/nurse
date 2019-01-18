@@ -1,130 +1,140 @@
 <template>
-    <transition name="slide">
-        <div class="routerViewPage">
-            <van-nav-bar
-                fixed
-                v-if="type == 1"
-                title="租床统计"
-                left-arrow
-                @click-left="onClickLeft"
-            >
-            </van-nav-bar>
-            <van-nav-bar
-                fixed
-                v-if="type == 2"
-                title="费用统计"
-                left-arrow
-                @click-left="onClickLeft"
-            >
-            </van-nav-bar>
-            <div class="topblank"></div>
-            <div class="statisticalresults">
-                <van-button size="large" @click="selectDate"
-                    >日统计<span class="title">{{ selectTime }}</span
-                    ><i> </i>
-                </van-button>
-                <van-cell-group>
-                    <van-cell title="总计(管辖区内两张陪护床)" />
-                    <div class="con" v-if="type == 1">
-                        <p>总使用次数：{{ amount }}次</p>
-                        <p>总使用时间：{{ second }}</p>
-                    </div>
-                    <div class="con" v-if="type == 2">
-                        <p>总收入：{{ money }}元</p>
-                    </div>
-                    <div class="white"></div>
-                </van-cell-group>
-            </div>
-            <div class="date"><router-view></router-view></div>
-        </div>
-    </transition>
+  <transition name="slide">
+    <div class="routerViewPage">
+      <van-nav-bar
+        fixed
+        v-if="type == 1"
+        title="租床统计"
+        left-arrow
+        @click-left="onClickLeft"
+      >
+      </van-nav-bar>
+      <van-nav-bar
+        fixed
+        v-if="type == 2"
+        title="费用统计"
+        left-arrow
+        @click-left="onClickLeft"
+      >
+      </van-nav-bar>
+      <div class="topblank"></div>
+      <div class="statisticalresults">
+        <van-button
+          size="large"
+          @click="selectDate"
+        >日统计<span class="title">{{ selectTime }}</span><i> </i>
+        </van-button>
+        <van-cell-group>
+          <van-cell title="总计(管辖区内两张陪护床)" />
+          <div
+            class="con"
+            v-if="type == 1"
+          >
+            <p>总使用次数：{{ amount }}次</p>
+            <p>总使用时间：{{ second }}</p>
+          </div>
+          <div
+            class="con"
+            v-if="type == 2"
+          >
+            <p>总收入：{{ money }}元</p>
+          </div>
+          <div class="white"></div>
+        </van-cell-group>
+      </div>
+      <div class="date">
+        <router-view></router-view>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
 import { getFormatDate } from "common/js/dom";
 import { ERR_OK } from "src/api/config";
 import {
-    bedOperation,
-    bedYear,
-    bedMonth,
-    bedDay,
-    bedSelectTime,
-    bedStatistical
+  bedOperation,
+  bedYear,
+  bedMonth,
+  bedDay,
+  bedSelectTime,
+  bedStatistical
 } from "api/nurse";
 import { mapGetters } from "vuex";
 import common from "common/js/common.js";
 
 export default {
-    components: {},
-    data() {
-        return {
-            type: "",
-            amount: "",
-            second: "",
-            money: "",
-            selectTime: "",
-            backDate: ""
-        };
-    },
+  components: {},
+  data() {
+    return {
+      type: "",
+      amount: "",
+      second: "",
+      money: "",
+      selectTime: "",
+      backDate: ""
+    };
+  },
 
-    computed: {
-        ...mapGetters(["dateTime"])
+  computed: {
+    ...mapGetters(["dateTime"])
+  },
+  watch: {},
+  methods: {
+    _getData() {
+      let nowDate = getFormatDate();
+      let now = nowDate.trim().split(" ");
+      common.$on(
+        "selectedTime",
+        function (data) {
+          console.log(data)
+          this.selectTime = data;
+          this._bedSelectTime(this.selectTime);
+        }.bind(this)
+      );
+      this.selectTime = now[0];
+      this._bedSelectTime(this.selectTime);
     },
-    watch: {},
-    methods: {
-        _getData() {
-            let nowDate = getFormatDate();
-            let now = nowDate.trim().split(" ");
-            common.$on(
-                "selectedTime",
-                function(data) {
-                    this.selectTime = data;
-                    this._bedSelectTime(this.selectTime);
-                }.bind(this)
-            );
-            this.selectTime = now[0];
-            this._bedSelectTime(this.selectTime);
-        },
-        _bedSelectTime(time) {
-            // 某年、月、日统计接口
-            bedSelectTime(time).then(res => {
-                if (res.state * 1 === ERR_OK) {
-                    this.amount = res.data.orderNum;
-                    this.second = res.data.totalTime;
-                    this.money = res.data.cost;
-                } else {
-                    this.amount = 0;
-                    this.second = 0;
-                    this.money = 0;
-                }
-            });
-        },
-        onClickLeft() {
-            this.$router.push({
-                name: "nurse"
-            });
-        },
-        selectDate() {
-            this.$router.push({
-                name: "selectDate",
-                params: {
-                    id: 1
-                }
-            });
+    _bedSelectTime(time) {
+      // 某年、月、日统计接口
+      bedSelectTime(time).then(res => {
+        if (res.state * 1 === ERR_OK) {
+          this.amount = res.data.orderNum;
+          this.second = res.data.totalTime;
+          this.money = res.data.cost;
+        } else {
+          this.amount = 0;
+          this.second = 0;
+          this.money = 0;
         }
+      });
     },
-    created() {
-        this._getData();
-        this.type = this.$route.params.id;
+    onClickLeft() {
+      this.$router.push({
+        name: "nurse"
+      });
     },
-    mounted() {},
-    beforeCreate() {},
-    beforeMount() {},
-    beforeUpdate() {},
-    updated() {},
-    beforeDestroy() {},
-    destroyed() {},
-    activated() {}
+    selectDate() {
+      this.$router.push({
+        name: "selectDate",
+        params: {
+          id: 1
+        }
+      });
+    }
+  },
+  created() {
+    this._getData();
+    this.type = this.$route.params.id;
+  },
+  mounted() { },
+  beforeCreate() { },
+  beforeMount() { },
+  beforeUpdate() { },
+  updated() { },
+  beforeDestroy() { },
+  destroyed() { },
+  activated() { }
 };
 </script>
 <style scoped lang="stylus">

@@ -45,7 +45,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/bed'
+      redirect: '/operation'
     },
     {
       path: '/bed',

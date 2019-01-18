@@ -24,7 +24,7 @@
                   @click="wx()"
                 />
               </div>
-              <p>扫码开锁</p>
+              <p>扫码绑定</p>
             </van-col>
           </van-row>
           <van-row>
@@ -36,7 +36,7 @@
                   @click="handinput()"
                 />
               </div>
-              <p>输入编码开锁</p>
+              <p>输入编码绑定</p>
             </van-col>
           </van-row>
         </div>

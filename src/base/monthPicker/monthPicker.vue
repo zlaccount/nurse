@@ -17,7 +17,7 @@
         <h2 class="list-group-title">{{group.time}}</h2>
         <ul>
           <li
-            @click="selectItem(item)"
+            @click="selectItem(group,item)"
             v-for="(item,index) in group.list"
             class="list-group-item"
             :key='index'
@@ -95,8 +95,8 @@ export default {
     }
   },
   methods: {
-    selectItem(item) {
-      this.$emit('select', item)
+    selectItem(group, item) {
+      this.$emit('select', group, item)
     },
     onShortcutTouchStart(e) {
       let anchorIndex = getData(e.target, 'index')
@@ -266,6 +266,7 @@ export default {
     left: 0px;
     width: 100%;
     padding-left: 26%;
+
     .fixed-title {
       height: 30px;
       line-height: 30px;

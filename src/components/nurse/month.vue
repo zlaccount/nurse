@@ -2,10 +2,10 @@
   <transition name="date">
     <div class="month">
       <month-picker
+        v-if="showMonthPicker"
         @select="selectOrder"
         :data="monthData"
       ></month-picker>
-      <router-view></router-view>
     </div>
   </transition>
 </template>
@@ -13,6 +13,7 @@
 <script type="text/ecmascript-6">
 import { ERR_OK } from 'api/config'
 import MonthPicker from 'base/monthPicker/monthPicker'
+import common from 'common/js/common.js'
 import { mapMutations } from 'vuex'
 import {
   bedStatistical
@@ -21,6 +22,7 @@ import {
 export default {
   data() {
     return {
+      showMonthPicker: true,
       monthData: [],
     }
   },
@@ -28,11 +30,10 @@ export default {
     this._getData()
   },
   methods: {
-    selectOrder(item) {
-      console.log(item)
-      // this.$router.push({
-      //   path: `/singer/${singer.id}`
-      // })
+    selectOrder(group, item) {
+      common.$emit('selectedTime', group.time + "-" + item.time);
+      this.$router.go(-1);
+      this.showMonthPicker = false
     },
 
     _getData() {

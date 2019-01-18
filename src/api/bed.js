@@ -7,7 +7,7 @@ import axios from "axios";
 // 用户端
 // 1.扫码或输入编号开锁接口（写好待测）
 export function handSerial() {
-  const url = "/api/user/openLock";
+  const url = "/user/openLock";
   const data = Object.assign({}, {
     user_id: "8be665d43fa838010e8ba95ba20d5a8f",
     chaperonage_bed_code: 1800100
@@ -23,7 +23,7 @@ export function handSerial() {
 }
 // 4.用户进入缴纳押金界面或查看押金接口（写好待测）
 export function deposit() {
-  const url = "/api/user/pay_deposit";
+  const url = "/user/pay_deposit";
   const data = Object.assign({}, {
     user_id: "a8dc75be56fe5f7833eed2f88d7d701e"
   });
@@ -38,7 +38,7 @@ export function deposit() {
 
 // 9.我的订单接口（写好待测）
 export function order() {
-  const url = "/api/user/my_order";
+  const url = "/user/my_order";
   const data = Object.assign({}, {
     user_id: "a8dc75be56fe5f7833eed2f88d7d701e",
     pay_state: "-1"
@@ -53,7 +53,7 @@ export function order() {
 }
 // 10.详情订单接口（写好待测）
 export function orderDetail(order_id) {
-  const url = "/api/user/order_form";
+  const url = "/user/order_form";
   const data = Object.assign({}, {
     user_id: "a8dc75be56fe5f7833eed2f88d7d701e",
     order_id: order_id
