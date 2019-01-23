@@ -1,34 +1,35 @@
 import {
-  commonParams
+  options
 } from './config'
 import axios from 'axios'
 
 // 护士端
 /* 陪护床床号所有数据 */
-export function bedAllData(serial) {
-  const url = 'bed/manager/queryList'
-  const data = Object.assign({}, {
-    currentPage: 1,
-    pageSize: '10',
-    hospitalId: '030b7bef56fe5f783357075d6264fe22',
-    subName: '儿童保健科',
-    chaperonageBedCode: serial
-  })
 
-  return axios.get(url, {
-    params: data
-  }).then((res) => {
-    return Promise.resolve(res.data)
-  })
-}
+// export function bedAllData(serial) {
+//   const url = 'bed/manager/queryList'
+//   const data = Object.assign({}, {
+//     currentPage: 1,
+//     pageSize: '10',
+//     hospitalId: localStorage.getItem("hospitalId"),
+//     subName: localStorage.getItem("subName"),
+//     chaperonageBedCode: serial
+//   })
+
+//   return axios.get(url, {
+//     params: data
+//   }).then((res) => {
+//     return Promise.resolve(res.data)
+//   })
+// }
 
 // 陪护床新增、修改、解绑接口
-export function bedOperation(serial, floor, room) {
+export function bedOperation(serial, way, floor, room) {
   const url = 'bed/manager/bedInfoSave'
   const data = Object.assign({}, {
     chaperonageBedCode: serial,
-    way: '0',
-    nurseId: 'f171802156fe5f781685c1d5b475d638',
+    way: way,
+    nurseId: localStorage.getItem("nurseId"),
     roomId: room,
     bedNumber: room,
     bedAddress: floor
@@ -45,6 +46,8 @@ export function bedOperation(serial, floor, room) {
 export function bedDetail() {
   const url = 'bed/manager/search'
   const data = Object.assign({}, {
+    hospitalId: localStorage.getItem("hospitalId"),
+    subName: localStorage.getItem("subName"),
     id: "1"
   })
 
@@ -58,10 +61,10 @@ export function bedDetail() {
 export function bedStatistical() {
   const url = 'bed/rent/queryList'
   const data = Object.assign({}, {
-    subName: "儿童保健科",
-    hospitalId: "030b7bef56fe5f783357075d6264fe22",
     currentPage: "1",
-    pageSize: "10"
+    pageSize: "10",
+    hospitalId: localStorage.getItem("hospitalId"),
+    subName: localStorage.getItem("subName"),
   })
   return axios.get(url, {
     params: data
@@ -76,8 +79,8 @@ export function bedSelectTime(date) {
   const url = 'bed/rent/app/time'
   const data = Object.assign({}, {
     date: date,
-    subName: "儿童保健科",
-    hospitalId: "030b7bef56fe5f783357075d6264fe22"
+    hospitalId: localStorage.getItem("hospitalId"),
+    subName: localStorage.getItem("subName"),
   })
 
   return axios.get(url, {
@@ -93,12 +96,12 @@ export function monitoring(date) {
   const data = Object.assign({}, {
     currentPage: "1",
     pageSize: "10",
-    subName: "儿童保健科",
-    hospitalId: "030b7bef56fe5f783357075d6264fe22",
     lockState: "",
     bedEnergy: "",
     bedFlow: "",
-    serviceTime: ""
+    serviceTime: "",
+    hospitalId: localStorage.getItem("hospitalId"),
+    subName: localStorage.getItem("subName"),
   })
 
   return axios.get(url, {
@@ -114,8 +117,8 @@ export function bedYear() {
   const data = Object.assign({}, {
     currentPage: "1",
     pageSize: "10",
-    subName: "儿童保健科",
-    hospitalId: "030b7bef56fe5f783357075d6264fe22"
+    hospitalId: localStorage.getItem("hospitalId"),
+    subName: localStorage.getItem("subName"),
   })
 
   return axios.get(url, {
@@ -131,8 +134,8 @@ export function bedMonth() {
     currentPage: "1",
     pageSize: "10",
     time: "2018",
-    subName: "儿童保健科",
-    hospitalId: "030b7bef56fe5f783357075d6264fe22"
+    hospitalId: localStorage.getItem("hospitalId"),
+    subName: localStorage.getItem("subName"),
   })
 
   return axios.get(url, {
@@ -147,9 +150,9 @@ export function bedDay(date) {
   const data = Object.assign({}, {
     currentPage: "1",
     pageSize: "10",
+    hospitalId: localStorage.getItem("hospitalId"),
+    subName: localStorage.getItem("subName"),
     time: date,
-    subName: "儿童保健科",
-    hospitalId: "030b7bef56fe5f783357075d6264fe22"
   })
 
   return axios.get(url, {

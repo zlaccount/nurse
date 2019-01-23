@@ -7,10 +7,14 @@ export const commonParams = {
   user_id: '12'
 }
 
-export const options = {
-  param: 'jsonpCallback'
-}
+// export const options = {
+//   param: 'jsonpCallback'
+// }
 
+export const options = {
+  hospitalId: localStorage.getItem("hospitalId"),
+  subName: localStorage.getItem("subName")
+}
 export const ERR_OK = 0
 // export const imgUrl = 'https://www.51edoctor.com/'
 export const imgUrl = 'http://59.172.27.186:8888/'

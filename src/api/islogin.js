@@ -17,13 +17,12 @@ export function getcode(phone) {
   })
 }
 
-// 校验验证码
+// 校验账户密码
 export function checkcode(phone, sms) {
-  const url = 'EDoctor_service/app/manager/account/user/verifyCode.json'
+  const url = 'admin/hospitalUser/login'
   const data = Object.assign({}, {
-    sid: '123',
-    mobileNo: phone,
-    Code: sms
+    username: phone,
+    password: sms
   })
   return axios.get(url, {
     params: data

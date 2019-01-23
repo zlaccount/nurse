@@ -1,62 +1,56 @@
 <template>
-  <transition name="slide">
-    <div class="routerViewPage">
-      <van-nav-bar
-        fixed
-        title="绑定病房号"
-        left-arrow
-        @click-left="onClickLeft"
-      >
-      </van-nav-bar>
-      <div class="topblank"></div>
-      <div class="room">
-        <div class="roomTip">
-          <p>陪护床编号 : {{serialVal}}</p>
-          <van-cell-group>
-            <van-field
-              v-model="floor"
-              placeholder="请输入楼层"
-            />
-          </van-cell-group>
-          <p><span>请输入要绑定的病房号</span></p>
-        </div>
-        <!-- 数字框 -->
-        <div class="inputNumber">
-          <div
-            class="tip"
-            ref="errortip"
-          >该病房已陪护床已满，请重新选择</div>
-          <van-row>
-            <van-col
-              span="4"
-              v-for="(item, index) in keyLis"
-              :key="index"
+    <transition name="slide">
+        <div class="routerViewPage">
+            <van-nav-bar
+                fixed
+                title="绑定病房号"
+                left-arrow
+                @click-left="onClickLeft"
             >
-              <div class="textNumber"></div>
-            </van-col>
-          </van-row>
-          <van-row>
-            <van-col
-              span="4"
-              v-for="(item, index) in curVal"
-              :key="index"
-            >
-              <div class="textNumber">{{ item }}</div>
-            </van-col>
-          </van-row>
+            </van-nav-bar>
+            <div class="topblank"></div>
+            <div class="room">
+                <div class="roomTip">
+                    <p>陪护床编号 : {{ serialVal }}</p>
+                    <van-cell-group>
+                        <van-field v-model="floor" placeholder="请输入楼层" />
+                    </van-cell-group>
+                    <p><span>请输入要绑定的病房号</span></p>
+                </div>
+                <!-- 数字框 -->
+                <div class="inputNumber">
+                    <div class="tip" ref="errortip">
+                        该病房已陪护床已满，请重新选择
+                    </div>
+                    <van-row>
+                        <van-col
+                            span="4"
+                            v-for="(item, index) in keyLis"
+                            :key="index"
+                        >
+                            <div class="textNumber"></div>
+                        </van-col>
+                    </van-row>
+                    <van-row>
+                        <van-col
+                            span="4"
+                            v-for="(item, index) in curVal"
+                            :key="index"
+                        >
+                            <div class="textNumber">{{ item }}</div>
+                        </van-col>
+                    </van-row>
+                </div>
+                <!-- 数字键盘 -->
+                <van-number-keyboard
+                    :show="showKeyboard"
+                    @input="onInput"
+                    @delete="onDelete"
+                />
+            </div>
+            <div class="resultView"><router-view></router-view></div>
         </div>
-        <!-- 数字键盘 -->
-        <van-number-keyboard
-          :show="showKeyboard"
-          @input="onInput"
-          @delete="onDelete"
-        />
-      </div>
-      <div class="resultView">
-        <router-view></router-view>
-      </div>
-    </div>
-  </transition>
+    </transition>
 </template>
 
 <script type="text/ecmascript-6">
@@ -88,8 +82,8 @@ export default {
       // 清空键盘值
       if (that.curVal.length === that.keyLis.length) {
         var val = that.curVal * 1
-
-        bedOperation(this.serialVal, this.floor, val).then(res => {
+        var way=0
+        bedOperation(this.serialVal, way,this.floor, val).then(res => {
           console.log(res)
           if (res === 2) {
             Toast('该陪护床已绑定，请重新选择');

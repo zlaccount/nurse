@@ -1,13 +1,16 @@
 const state = {
   // 是否登录
-  islogin: false,
+  islogin: [{
+    state: false
+  }, {
+  }],
   depositType: 2,
   bedmanager: false,
   beddirections: false,
   orderState: true,
-  order:{},
-  hospital:'',
-  dateTime:''
+  order: {},
+  hospital: '',
+  dateTime: ''
 }
 
 export default state

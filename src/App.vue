@@ -3,7 +3,7 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-    <login></login>
+    <!-- <login></login> -->
     <deposit-manger></deposit-manger>
     <bed-manager></bed-manager>
     <directions></directions>

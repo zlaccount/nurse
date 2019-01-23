@@ -1,82 +1,68 @@
 <!---->
 <template>
-  <transition name="slide">
-    <div class="routerViewPage">
-      <van-nav-bar
-        fixed
-        title="绑定病房号"
-        left-arrow
-        @click-left="onClickLeft"
-      >
-      </van-nav-bar>
-      <div class="topblank"></div>
-      <div class="resultCon">
-        <div
-          class="success"
-          v-if="this.resultType==0"
-        >
-          <img
-            src="../../../static/img/success.png"
-            slot="right"
-          />
-          <p>绑定成功</p>
+    <transition name="slide">
+        <div class="routerViewPage">
+            <van-nav-bar
+                fixed
+                title="绑定病房号"
+                left-arrow
+                @click-left="onClickLeft"
+            >
+            </van-nav-bar>
+            <div class="topblank"></div>
+            <div class="resultCon">
+                <div class="success" v-if="this.resultType == 0">
+                    <img src="../../../static/img/success.png" slot="right" />
+                    <p>绑定成功</p>
+                </div>
+                <div class="failure" v-if="this.resultType == 1">
+                    <img src="../../../static/img/failure.png" slot="right" />
+                    <p>绑定失败!</p>
+                </div>
+            </div>
         </div>
-        <div
-          class="failure"
-          v-if="this.resultType==1"
-        >
-          <img
-            src="../../../static/img/failure.png"
-            slot="right"
-          />
-          <p>绑定失败!</p>
-        </div>
-      </div>
-    </div>
-  </transition>
+    </transition>
 </template>
 
 <script>
 // 使用说明
 export default {
-  // import引入的组件需要注入到对象中才能使用
+    // import引入的组件需要注入到对象中才能使用
 
-  components: {
-  },
-  data() {
-    // 这里存放数据
-    return {
-      resultType: ''
-    }
-  },
-  // 监听属性 类似于data概念
-  computed: {},
-  // 监控data中的数据变化
-  watch: {},
-  // 方法集合
-  methods: {
-    onClickLeft() {
-      this.$router.push({
-        path: `/operation`
-      })
-    }
-  },
-  // 生命周期 - 创建完成（可以访问当前this实例）
-  created() { },
-  // 生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {
-    // 获取get传递过来的动态路由的值
-    console.log('resultType', this.$route.params.id)
-    this.resultType = this.$route.params.id
-  },
-  beforeCreate() { }, // 生命周期 - 创建之前
-  beforeMount() { }, // 生命周期 - 挂载之前
-  beforeUpdate() { }, // 生命周期 - 更新之前
-  updated() { }, // 生命周期 - 更新之后
-  beforeDestroy() { }, // 生命周期 - 销毁之前
-  destroyed() { }, // 生命周期 - 销毁完成
-  activated() { } // 如果页面有keep-alive缓存功能，这个函数会触发
-}
+    components: {},
+    data() {
+        // 这里存放数据
+        return {
+            resultType: ""
+        };
+    },
+    // 监听属性 类似于data概念
+    computed: {},
+    // 监控data中的数据变化
+    watch: {},
+    // 方法集合
+    methods: {
+        onClickLeft() {
+            this.$router.push({
+                path: `/operation`
+            });
+        }
+    },
+    // 生命周期 - 创建完成（可以访问当前this实例）
+    created() {
+        // 获取get传递过来的动态路由的值
+        this.resultType = this.$route.params.id;
+    },
+    // 生命周期 - 挂载完成（可以访问DOM元素）
+    mounted() {},
+    beforeCreate() {}, // 生命周期 - 创建之前
+    beforeMount() {}, // 生命周期 - 挂载之前
+    beforeUpdate() {}, // 生命周期 - 更新之前
+    updated() {}, // 生命周期 - 更新之后
+    beforeDestroy() {}, // 生命周期 - 销毁之前
+    destroyed() {}, // 生命周期 - 销毁完成
+    activated() {} // 如果页面有keep-alive缓存功能，这个函数会触发
+};
 </script>
 <style scoped lang="stylus">
 .resultCon {

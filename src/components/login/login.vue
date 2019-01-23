@@ -1,10 +1,7 @@
 <!---->
 <template>
   <transition name="slide">
-    <div
-      class="routerViewPage"
-      v-if="islogin == true"
-    >
+    <div class="routerViewPage">
       <van-nav-bar
         fixed
         title="登录"
@@ -27,8 +24,8 @@
               required
               clearable
               icon="contact"
-              label="手机号"
-              placeholder="请输入手机号"
+              label="账号"
+              placeholder="请输入账号"
               @click-icon="$toast('question')"
             />
             <van-field
@@ -36,17 +33,10 @@
               required
               center
               clearable
-              label="验证码"
-              placeholder="请输入短信验证码"
+              icon="closed-eye"
+              label="密码"
+              placeholder="请输入密码"
             >
-              <van-button
-                slot="button"
-                size="small"
-                type="primary"
-                :class="{ disabled: !this.canClick }"
-                @click="countDown"
-              >
-                {{ content }}</van-button>
             </van-field>
           </van-cell-group>
           <div class="confirmLogin">
@@ -67,6 +57,7 @@
 import { mapGetters, mapMutations } from "vuex";
 import { getcode, checkcode } from "api/islogin";
 import { ERR_OK } from "api/config";
+import common from "common/js/common.js";
 
 export default {
   //import引入的组件需要注入到对象中才能使用
@@ -93,62 +84,31 @@ export default {
   //方法集合
   methods: {
     loginBack() {
-      this.setIsLoin(false);
+      // this.setIsLoin({
+      //     state: false
+      // });
+      this.$router.back();
     },
-    countDown() {
-      let phone = this.phone;
-      let that = this;
-      if (phone == "") {
-        if (!/^1(3|4|5|7|8)\d{9}$/.test(phone)) {
-          that.$toast("手机号码有误，请重填");
-          return false;
-        }
-      }
-      if (!that.canClick) return;
-      that.canClick = false;
-      that.content = that.totalTime + "s后重新发送";
-      let clock = window.setInterval(() => {
-        that.totalTime--;
-        that.content = that.totalTime + "s后重新发送";
-        if (that.totalTime < 0) {
-          window.clearInterval(clock);
-          that.content = "重新发送验证码";
-          that.totalTime = 60;
-          that.canClick = true; //这里重新开启
-        }
-      }, 1000);
-      // 获取验证码
-      getcode(phone).then(res => {
-        if (res.returns === "success") {
-          that.$toast("验证码已发至您手机，请注意查收");
-        }
-      });
-    },
-
     login() {
       let phone = this.phone;
       let sms = this.sms;
       // 校验验证码登录
       if (phone != "" && sms != "") {
         checkcode(phone, sms).then(res => {
-          console.log(res);
-          // this.setID(res.t.user.id);
-          // this.setPersonlogo(res.t.user.image);
-          // this.setNickname(res.t.user.nickname);
-          // this.setBalance(res.t.user.balance);
-          this.setUserName(res.t.user.mobileNo);
-          this.setPwd(res.t.user.passWord);
-          localStorage.setItem("id", res.t.user.id);
-          localStorage.setItem("image", res.t.user.image);
-          localStorage.setItem("name", res.t.user.name);
-          localStorage.setItem("balance", res.t.user.balance);
-          localStorage.setItem("mobileNo", res.t.user.mobileNo);
-          localStorage.setItem("pwd", res.t.user.passWord);
-          localStorage.setItem("idCardNo", res.t.user.idCardNo);
-          localStorage.setItem("nickName", res.t.user.nickName);
-          localStorage.setItem("sex", res.t.user.sex);
-          this.$emit("loginChild", 1);
-          this.setIsLoin(false);
+          if (res.roleId === "陪护床科室管理员") {
+            common.$emit('msg', res);
+            this.$router.go(-1);
+            localStorage.setItem("hospitalId", res.hospitalId);
+            localStorage.setItem("nurseId", res.userId);
+            localStorage.setItem(
+              "departmentName",
+              res.departmentName
+            );
+          } else {
+            this.$toast("账户或者密码有误");
+          }
+          this.phone = "";
+          this.sms = "";
         });
       } else {
         this.$toast("手机号码或验证码有误，请重填");
@@ -157,12 +117,7 @@ export default {
     },
     ...mapMutations({
       setIsLoin: "SET_ISLOGIN",
-      setID: "SET_ID",
-      setPersonlogo: "SET_PERSONLOGO",
-      setNickname: "SET_NICKNAME",
-      setBalance: "SET_BALANCE",
-      setUserName: "SET_USER_NAME",
-      setPwd: "SET_PWD"
+      setMsg: "SET_MSG"
     })
   },
 
@@ -196,12 +151,13 @@ export default {
     z-index: 1000;
     width: 80%;
     position: relative;
-    margin: 200px auto;
+    margin: 150px auto;
     flex-direction: row;
     align-items: center;
 
     .van-cell {
       border-bottom: 1px solid #eee;
+      background-color: transparent;
     }
 
     .confirmLogin {
@@ -216,6 +172,8 @@ export default {
     }
 
     .van-cell-group {
+      background-color: transparent;
+
       .van-button {
         width: 100%;
         padding: 0 4px !important;

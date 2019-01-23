@@ -1,53 +1,51 @@
 <template>
-  <transition name="slide">
-    <div class="routerViewPage">
-      <div class="keyBoradImport ">
-        <van-nav-bar
-          fixed
-          title="输入编号"
-          left-arrow
-          @click-left="onClickLeft"
-        >
-        </van-nav-bar>
-        <div class="topblank"></div>
-        <!-- 数字框 -->
-        <div class="inputNumber">
-          <van-row>
-            <van-col
-              span="4"
-              v-for="(item, index) in keyLis"
-              :key="index"
-            >
-              <div class="textNumber"></div>
-            </van-col>
-          </van-row>
-          <van-row>
-            <van-col
-              span="4"
-              v-for="(item, index) in curVal"
-              :key="index"
-            >
-              <div class="textNumber">{{ item }}</div>
-            </van-col>
-          </van-row>
+    <transition name="slide">
+        <div class="routerViewPage">
+            <div class="keyBoradImport ">
+                <van-nav-bar
+                    fixed
+                    title="输入编号"
+                    left-arrow
+                    @click-left="onClickLeft"
+                >
+                </van-nav-bar>
+                <div class="topblank"></div>
+                <!-- 数字框 -->
+                <div class="inputNumber">
+                    <van-row>
+                        <van-col
+                            span="4"
+                            v-for="(item, index) in keyLis"
+                            :key="index"
+                        >
+                            <div class="textNumber"></div>
+                        </van-col>
+                    </van-row>
+                    <van-row>
+                        <van-col
+                            span="4"
+                            v-for="(item, index) in curVal"
+                            :key="index"
+                        >
+                            <div class="textNumber">{{ item }}</div>
+                        </van-col>
+                    </van-row>
+                </div>
+                <!-- 数字键盘 -->
+                <van-number-keyboard
+                    :show="showKeyboard"
+                    @input="onInput"
+                    @delete="onDelete"
+                />
+            </div>
+            <div class="roomView"><router-view></router-view></div>
         </div>
-        <!-- 数字键盘 -->
-        <van-number-keyboard
-          :show="showKeyboard"
-          @input="onInput"
-          @delete="onDelete"
-        />
-      </div>
-      <div class="roomView">
-        <router-view></router-view>
-      </div>
-    </div>
-  </transition>
+    </transition>
 </template>
 
 <script type="text/ecmascript-6">
 import common from 'common/js/common.js'
-import { bedAllData } from "api/nurse";
+import { bedOperation } from "api/nurse";
 import Vue from 'vue'
 import { Toast } from 'vant';
 
@@ -72,10 +70,12 @@ export default {
       // 清空键盘值
       if (that.curVal.length === that.keyLis.length) {
         var val = that.curVal * 1
+        var way=0
+        var floor=''
+        var room=''
         // 判断是否已绑定
-        bedAllData(val).then(res => {
-          // console.log(res[0].chaperonageBedBindingState)
-          if (res.length === 1) {
+        bedOperation(val,way,floor,room).then(res => {
+          if (res === 3) {
             Toast('编号已绑定，请勿重新绑定');
             return false
           }
@@ -86,8 +86,6 @@ export default {
             }
           })
         })
-        // common.$emit('serialVal', this.dataType)
-        // that.$emit('listenChildSerial', this.dataType)
         // 清空
         that.keyValue = []
       }

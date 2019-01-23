@@ -34,6 +34,8 @@ import Maintenance from 'src/page/maintenance/maintenance';
 
 // 我的
 import My from 'src/page/my/my';
+// 登录
+import Login from "components/login/login";
 // 个人资料
 import Selfperson from 'components/my/selfperson';
 // 账户充值
@@ -42,8 +44,7 @@ import Selfbalance from 'components/my/selfbalance';
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       redirect: '/operation'
     },
@@ -51,8 +52,7 @@ export default new Router({
       path: '/bed',
       name: 'bed',
       component: Bed,
-      children: [
-        {
+      children: [{
           path: '/bed/serial',
           name: 'bedserial',
           component: Bedserial
@@ -68,46 +68,36 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: Order,
-      children: [
-        {
-          path: ':id',
-          component: OrderDetail
-        }
-      ]
+      children: [{
+        path: ':id',
+        component: OrderDetail
+      }]
     },
     {
       path: '/operation',
       name: 'operation',
       component: Operation,
-      children: [
-        {
-          path: '/operation/serial',
-          name: 'serial',
-          component: Serial,
-          children: [
-            {
-              path: '/operation/serial/bindingroom',
-              name: 'bindingroom',
-              component: Bindingroom,
-              children: [
-                {
-                  path:
-                                        '/operation/serial/bindingroom/bindingresult',
-                  name: 'bindingresult',
-                  component: Bindingresult
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      children: [{
+        path: '/operation/serial',
+        name: 'serial',
+        component: Serial,
+        children: [{
+          path: '/operation/serial/bindingroom',
+          name: 'bindingroom',
+          component: Bindingroom,
+          children: [{
+            path: '/operation/serial/bindingroom/bindingresult',
+            name: 'bindingresult',
+            component: Bindingresult
+          }]
+        }]
+      }]
     },
     {
       path: '/nurse',
       name: 'nurse',
       component: Nurse,
-      children: [
-        {
+      children: [{
           path: '/nurse/monitoring',
           name: 'monitoring',
           component: Monitoring
@@ -116,13 +106,11 @@ export default new Router({
           path: '/nurse/statisticalresults',
           name: 'statisticalresults',
           component: Statisticalresults,
-          children: [
-            {
-              path: '/nurse/statisticalresults/selectDate',
-              name: 'selectDate',
-              component: SelectDate
-            }
-          ]
+          children: [{
+            path: '/nurse/statisticalresults/selectDate',
+            name: 'selectDate',
+            component: SelectDate
+          }]
         }
       ]
     },
@@ -144,7 +132,11 @@ export default new Router({
       path: '/my',
       name: 'my',
       component: My,
-      children: [
+      children: [{
+          path: '/my/login',
+          name: 'login',
+          component: Login
+        },
         {
           path: '/my/selfperson',
           name: 'selfperson',

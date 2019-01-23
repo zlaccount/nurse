@@ -1,24 +1,8 @@
 <!--  -->
 <template>
   <div class="myView">
-    <div class="gray"></div>
     <div class="cellLink">
-      <!-- 我的订单 -->
-      <van-cell
-        is-link
-        @click="balance"
-      >
-        <template slot="title">
-          <img
-            :src="icon.myBalance"
-            slot="right"
-            class="leftIcon"
-          />
-          <span class="custom-text">我的账户</span>
-        </template>
-      </van-cell>
       <div class="gray"></div>
-
       <!-- 客服服务 -->
       <van-cell
         is-link
@@ -34,12 +18,10 @@
         </template>
       </van-cell>
       <div class="gray"></div>
-
       <!-- 帮助 -->
       <van-cell
         is-link
         @click="directions"
-        v-show="this.indexIsHide == 0"
       >
         <template slot="title">
           <img
@@ -51,14 +33,17 @@
         </template>
       </van-cell>
 
-      <div
-        class="backLogin"
-        v-show="this.indexIsHide == 0"
-      >
+      <div class="backLogin">
         <van-button
           size="normal"
+          v-if="this.loginType == 0"
           @click="loginBack"
         >退出登录</van-button>
+        <van-button
+          size="normal"
+          v-if="this.loginType == 1"
+          @click="login"
+        >登录</van-button>
       </div>
     </div>
     <!--客服服务-->
@@ -87,6 +72,7 @@ import { mapGetters, mapMutations } from "vuex";
 import { ERR_OK, imgUrl } from "api/config";
 import { getBasicData } from "api/myself";
 import { deposit } from "api/bed";
+import Login from "components/login/login";
 
 import localImgUrl from "../../../static/img/invite@3x.png";
 // 公共js
@@ -96,11 +82,11 @@ import help_active from "../../../static/img_icon/icon_help.png";
 import waitpay_active from "../../../static/img_icon/icon_waitpay.png";
 import iconwode_active from "../../../static/img_icon/icon-wode.png";
 import Theorder_active from "../../../static/img_icon/Theorder.png";
-import icon_my_active from '../../../static/img_icon/icon-wode2-mall@2x.png'
+import icon_my_active from "../../../static/img_icon/icon-wode2-mall@2x.png";
 
 export default {
   // import引入的组件需要注入到对象中才能使用
-  components: {},
+  components: { Login },
   data() {
     // 这里存放数据
     return {
@@ -108,12 +94,12 @@ export default {
       finished: false,
       loading: false,
       parentMsg: "",
+      loginType: 1,
       // 初始化数据
-      indexIsHide: 0,
       accountImage: "",
       accountName: "",
       accountBalance: "",
-      getDepositType: '',
+      getDepositType: "",
       phone: "027-88112751",
       localImgUrl: localImgUrl,
       // 开关
@@ -133,13 +119,7 @@ export default {
   },
   // 监听属性 类似于data概念
   computed: {
-    ...mapGetters([
-      "id",
-      "user_name",
-      "pwd",
-      "depositType",
-      "beddirections"
-    ])
+    ...mapGetters(["islogin"])
   },
   // 监控data中的数据变化
   watch: {},
@@ -151,25 +131,26 @@ export default {
       this.accountImage = "";
       this.accountName = "";
       window.localStorage.clear();
+      this.$router.push({
+        name: "login"
+      });
+    },
+    login() {
+      this.$router.push({
+        name: "login"
+      });
     },
     // 是否登录
     _getBasicData() {
-
-
-
-      if (localStorage.getItem("id")) {
-        // getBasicData(this.user_name, this.pwd).then(res => {
-        // });
-        this.accountImage = imgUrl + localStorage.getItem("image");
-        this.accountName =
-          localStorage.getItem("name") == undefined
-            ? ""
-            : localStorage.getItem("name");
-        this.accountBalance = localStorage.getItem("balance");
+      common.$on(
+        "msg",
+        function (data) {
+          this.loginType = 0
+        }.bind(this)
+      );
+      if (localStorage.getItem("nurseId")) {
+        this.loginType = 0
       }
-      // deposit().then(res => {
-      //   this.getDepositType = res
-      // });
     },
     // 押金管理
     depositManger() {
@@ -183,13 +164,13 @@ export default {
     ItemWaitPay() { },
     // 个人资料
     person() {
-      if (!localStorage.getItem('id')) {
-        this.setIsLoin(true)
+      if (!localStorage.getItem("id")) {
+        this.setIsLoin(true);
       } else {
         this.$router.push({
-          name: 'selfperson',
-        })
-        return false
+          name: "selfperson"
+        });
+        return false;
       }
     },
     // 账户充值
