@@ -15,7 +15,7 @@
                     <img src="../../../static/img/success.png" slot="right" />
                     <p>绑定成功</p>
                 </div>
-                <div class="failure" v-if="this.resultType == 1">
+                <div class="failure" v-if="this.resultType != 0">
                     <img src="../../../static/img/failure.png" slot="right" />
                     <p>绑定失败!</p>
                 </div>

@@ -19,6 +19,7 @@ import Bindingresult from 'components/operation/bindingresult';
 import Nurse from 'components/nurse/nurse';
 // 使用监测
 import Monitoring from 'src/page/monitoring/monitoring';
+import BedDetail from 'components/BedDetail/BedDetail';
 
 // 租床、费用统计选择日期
 import SelectDate from 'components/selectDate/selectDate';
@@ -100,7 +101,11 @@ export default new Router({
       children: [{
           path: '/nurse/monitoring',
           name: 'monitoring',
-          component: Monitoring
+          component: Monitoring,
+           children: [{
+            path: ':id',
+            component: BedDetail
+          }]
         },
         {
           path: '/nurse/statisticalresults',
