@@ -93,9 +93,6 @@
 import Loading from 'base/loading/loading'
 import Scroll from 'base/scroll/scroll'
 import { ERR_OK } from 'api/config'
-import { mapGetters } from "vuex";
-import { order, orderDetail } from "api/bed";
-
 export default {
   props: {
     allOrder: {
@@ -120,11 +117,9 @@ export default {
       }
     },
     _getData() {
-      console.log(this.orderState)
     }
   },
   computed: {
-    ...mapGetters(["orderState"])
   },
   components: {
     Scroll,

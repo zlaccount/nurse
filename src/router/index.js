@@ -7,8 +7,6 @@ import Bed from 'src/page/bed/bed';
 import Bedserial from 'components/bed/serial';
 import Useding from 'components/bed/useding';
 // 订单管理
-import Order from 'components/order/order';
-import OrderDetail from 'components/orderDetail/orderDetail';
 
 // 护士端绑定操作
 import Operation from 'src/page/operation/operation';
@@ -64,15 +62,6 @@ export default new Router({
           component: Useding
         }
       ]
-    },
-    {
-      path: '/order',
-      name: 'order',
-      component: Order,
-      children: [{
-        path: ':id',
-        component: OrderDetail
-      }]
     },
     {
       path: '/operation',

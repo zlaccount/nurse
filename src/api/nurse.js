@@ -91,15 +91,15 @@ export function bedSelectTime(date) {
 }
 
 // 11.陪护床监测接口
-export function monitoring(currentPage, pageSize, bedCode) {
+export function monitoring(currentPage, pageSize, lockState, bedEnergy, bedFlow, serviceTime,bedCode) {
   const url = 'bed/monitor/queryList'
   const data = Object.assign({}, {
     currentPage: currentPage,
     pageSize: pageSize,
-    lockState: "",
-    bedEnergy: "",
-    bedFlow: "",
-    serviceTime: "",
+    lockState: lockState,
+    bedEnergy: bedEnergy,
+    bedFlow: bedFlow,
+    serviceTime: serviceTime,
     bedCode: bedCode,
     hospitalId: localStorage.getItem("hospitalId"),
     subName: localStorage.getItem("subName"),

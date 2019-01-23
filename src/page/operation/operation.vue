@@ -68,15 +68,21 @@ export default {
     // 输入密码开锁
     showIndexChild(val) { },
     _getData() {
-     
+
     },
     wx() {
       console.log('微信扫描窗口')
     },
     handinput() {
-      this.$router.push({
-        path: `/operation/serial`
-      })
+      var nurseId = localStorage.getItem("nurseId")
+      if (nurseId != null) {
+        this.$router.push({
+          path: `/operation/serial`
+        })
+      }
+      else {
+        this.$toast("您还未登录")
+      }
     }
   },
   created() {

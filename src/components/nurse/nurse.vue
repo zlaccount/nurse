@@ -84,27 +84,39 @@ export default {
   // 方法集合
   methods: {
     monitoring() {
-      this.$router.push({
-        path: `/nurse/monitoring`
-      })
+      if (localStorage.getItem("nurseId") != null) {
+        this.$router.push({
+          path: `/nurse/monitoring`
+        })
+      } else {
+        this.$toast("您还未登录")
+      }
     },
     // 租床统计
     rent() {
-      this.$router.push({
-        name: 'statisticalresults',
-        params: {
-          id: 1
-        }
-      })
+      if (localStorage.getItem("nurseId") != null) {
+        this.$router.push({
+          name: 'statisticalresults',
+          params: {
+            id: 1
+          }
+        })
+      } else {
+        this.$toast("您还未登录")
+      }
     },
     // 费用统计
     cost() {
-      this.$router.push({
-        name: 'statisticalresults',
-        params: {
-          id: 2
-        }
-      })
+      if (localStorage.getItem("nurseId") != null) {
+        this.$router.push({
+          name: 'statisticalresults',
+          params: {
+            id: 2
+          }
+        })
+      } else {
+        this.$toast("您还未登录")
+      }
     }
   },
 

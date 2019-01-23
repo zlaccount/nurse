@@ -101,7 +101,7 @@ export default {
             localStorage.setItem("hospitalId", res.hospitalId);
             localStorage.setItem("nurseId", res.userId);
             localStorage.setItem(
-              "departmentName",
+              "subName",
               res.departmentName
             );
           } else {
