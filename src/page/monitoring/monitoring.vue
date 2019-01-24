@@ -38,6 +38,7 @@ import barMenus from "src/router/data";
 import UsedState from "components/usedstate/usedstate";
 import { ERR_OK } from "src/api/config";
 import { monitoring } from "api/nurse";
+import common from "common/js/common.js";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: { FilterBar, UsedState },
@@ -52,7 +53,6 @@ export default {
       bedEnergy: '',
       bedFlow: '',
       serviceTime: '',
-      bedCode: '',
     };
   },
   //监听属性 类似于data概念
@@ -62,12 +62,15 @@ export default {
   //方法集合
   methods: {
     onClickLeft() {
-      // this.$router.push({
-      //   path: `/nurse`
-      // })
-      this.$router.back();
+      this.$router.push({
+        path: `/nurse`
+      })
     },
     selectOrder(order) {
+      if (order.lockState == 1) {
+        this.$toast("正在使用，不能解绑")
+        return false
+      }
       //接口对接
       this.$router.push({
         path: `/nurse/monitoring/${order.bedCode}`,
@@ -91,8 +94,6 @@ export default {
       for (let i in v) {
         arr.push(v[i]); //属性
       }
-      console.log(arr[0].selectIndex);
-
       switch (arr[0].selectIndex) {
         case 0:
           var lockState = arr[0].value
@@ -140,7 +141,7 @@ export default {
           var bedFlow = arr[0].value
           break;
       }
-      monitoring(this.currentPage, this.pageSize, lockState, bedEnergyState, bedEnergy, bedFlow, serviceTime, this.bedCode).then(res => {
+      monitoring(this.currentPage, this.pageSize, lockState, bedEnergyState, bedEnergy, bedFlow, serviceTime).then(res => {
         if (res.errcode * 1 === ERR_OK) {
           this.orderData = res.list;
           var lockState = ''
@@ -148,18 +149,33 @@ export default {
           var bedEnergy = ''
           var bedFlow = ''
           var serviceTime = ''
+        } else if (res.errcode * 1 === 1) {
+          this.orderData = '';
+          // this.$toast("暂无数据")
         }
       })
     },
     changeData(v) {
     },
     _getData() {
-      monitoring(this.currentPage, this.pageSize, this.lockState, this.bedEnergy, this.bedEnergyState, this.bedFlow, this.serviceTime, this.bedCode).then(res => {
+      common.$on(
+        "refresh",
+        function (data) {
+          console.log("refresh", data)
+          this._monitoring()
+          return false
+
+        }.bind(this)
+      );
+      this._monitoring()
+    },
+    _monitoring() {
+      monitoring(this.currentPage, this.pageSize, this.lockState, this.bedEnergy, this.bedEnergyState, this.bedFlow, this.serviceTime).then(res => {
         if (res.errcode * 1 === ERR_OK) {
           this.orderData = res.list;
         }
       })
-    },
+    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {

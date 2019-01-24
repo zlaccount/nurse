@@ -10,7 +10,10 @@ const state = {
   orderState: true,
   order: {},
   hospital: '',
-  dateTime: ''
+  dateTime: '',
+  resultType: [{
+    state: false
+  }, {}],
 }
 
 export default state

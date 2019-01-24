@@ -15,4 +15,6 @@ export const hospital = state => state.hospital
 
 // 选择日期
 export const dateTime = state => state.dateTime
+// 结果
+export const resultType = state => state.resultType
 

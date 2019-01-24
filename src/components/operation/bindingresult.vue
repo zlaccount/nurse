@@ -4,7 +4,7 @@
         <div class="routerViewPage">
             <van-nav-bar
                 fixed
-                title="绑定病房号"
+                title="绑定陪护床"
                 left-arrow
                 @click-left="onClickLeft"
             >

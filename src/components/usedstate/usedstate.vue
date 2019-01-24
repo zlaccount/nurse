@@ -58,13 +58,15 @@
             </van-cell>
             <div class="white"></div>
           </div>
+              
         </div>
       </div>
       <div
         class="loading-container"
         v-show="!allOrder.length"
       >
-        <loading></loading>
+        <div class="noData">暂无数据</div>
+        <!-- <loading></loading> -->
       </div>
     </scroll>
   </div>
@@ -82,7 +84,7 @@ export default {
   },
   data() {
     return {
-      state: [{ s: "未知异常" }, { s: "正常开启" }, { s: "关闭" }, { s: "未启用" }, { s: "电量不足" }, { s: "流量不足" }, { s: "非法开启" }, { s: "电源关闭" }, { s: "维修中" }]
+      state: [{ s: "未知异常" }, { s: "正在使用" }, { s: "关闭" }, { s: "未启用" }, { s: "电量不足" }, { s: "流量不足" }, { s: "非法开启" }, { s: "电源关闭" }, { s: "维修中" }]
     }
   },
   created() {
@@ -127,6 +129,10 @@ export default {
   .recommend-content {
     height: 100%;
     overflow: hidden;
+
+    .noData {
+      text-align: center;
+    }
 
     .loading-container {
       position: absolute;

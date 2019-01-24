@@ -24,9 +24,10 @@ import axios from 'axios'
 // }
 
 // 陪护床新增、修改、解绑接口
-export function bedOperation(serial, way, floor, room) {
+export function bedOperation(id,serial, way, room,floor ) {
   const url = 'bed/manager/bedInfoSave'
   const data = Object.assign({}, {
+    id: id,
     chaperonageBedCode: serial,
     way: way,
     nurseId: localStorage.getItem("nurseId"),

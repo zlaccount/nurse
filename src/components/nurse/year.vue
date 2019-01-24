@@ -3,26 +3,20 @@
   <transition name="date">
     <div class="year">
       <van-cell
-        title="2018年"
-        is-link
-      />
-      <van-cell
-        title="2017年"
-        is-link
-      />
-      <van-cell
-        title="2016年"
+        :title="item.y"
+        v-for="(item, index) in year"
+        :key="index"
+        @click="selectItem(item.y)"
         is-link
       />
     </div>
   </transition>
-
 </template>
-
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 import { mapMutations } from "vuex";
+import common from 'common/js/common.js'
 import { ERR_OK } from 'api/config'
 import {
   bedStatistical
@@ -33,7 +27,7 @@ export default {
   data() {
     // 这里存放数据
     return {
-
+      year: [{ y: '2019' }, { y: '2018' }, { y: '2017' }, { y: '2016' }]
     }
   },
   // 监听属性 类似于data概念
@@ -42,8 +36,13 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-     _getData() {
+    _getData() {
       this._bedStatistical()
+    },
+    selectItem(item) {
+      console.log(item)
+      common.$emit('selectedTime', item);
+      this.$router.go(-1);
     },
     _bedStatistical(time) {
       // 某年、月、日统计接口
@@ -58,7 +57,7 @@ export default {
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created() {
-this._getData()
+    this._getData()
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {

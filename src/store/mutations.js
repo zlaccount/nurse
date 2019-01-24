@@ -31,7 +31,11 @@ const mutations = {
   //选择日期
   [types.SET_DATE_TIME](state, dateTime) {
     state.dateTime = dateTime
-  }
+  },
+   //结果
+   [types.SET_RESULT_TYPE](state, resultType) {
+     state.resultType = resultType
+   }
 
 
 }

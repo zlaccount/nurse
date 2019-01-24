@@ -3,7 +3,7 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-    <!-- <login></login> -->
+    <result></result>
     <deposit-manger></deposit-manger>
     <bed-manager></bed-manager>
     <directions></directions>
@@ -13,7 +13,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Login from "components/login/login";
+import result from "components/result/result";
 import DepositManger from "components/deposit/deposit";
 import BedManager from "components/bedmanager/bedmanager";
 import Directions from "components/directions/directions";
@@ -26,7 +26,7 @@ export default {
     }
   },
   components: {
-    Login,
+    result,
     Tab,
     DepositManger,
     BedManager,

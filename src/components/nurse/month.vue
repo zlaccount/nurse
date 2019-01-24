@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       showMonthPicker: true,
+      objData: [{ 'year': '2019', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] },{ 'year': '2018', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }, { 'year': '2017', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }, { 'year': '2016', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }],
       monthData: [],
     }
   },
@@ -43,7 +44,8 @@ export default {
       // 某年、月、日统计接口
       bedStatistical(time).then(res => {
         console.log(res)
-        this.monthData = res
+        this.monthData = this.objData
+        // this.monthData = res
       });
     },
 

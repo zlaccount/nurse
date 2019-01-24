@@ -81,17 +81,17 @@ export default [{
     detailList: [{
       name: '20%以下',
       icon: '',
-      value: '20%',
+      value: '20',
       selectIndex: 8
     }, {
       name: '50%以下',
       icon: '',
-      value: '50%',
+      value: '50',
       selectIndex: 9
     }, {
       name: '50%以上',
       icon: '',
-      value: '50%',
+      value: '50',
       selectIndex: 10
     }]
   }]
@@ -110,17 +110,17 @@ export default [{
     detailList: [{
       name: '100b',
       icon: '',
-      value: '100b',
+      value: '100',
       selectIndex: 11
     }, {
       name: '100kb',
       icon: '',
-      value: '100kb',
+      value: '100',
       selectIndex: 12
     }, {
       name: '100mb',
       icon: '',
-      value: '100mb',
+      value: '100',
       selectIndex: 13
     }]
   }]

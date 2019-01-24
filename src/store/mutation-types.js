@@ -15,3 +15,5 @@ export const SET_HOSPITAL = 'SET_HOSPITAL'
 
 // 选择日期
 export const SET_DATE_TIME = 'SET_DATE_TIME'
+// 结果
+export const SET_RESULT_TYPE = 'SET_RESULT_TYPE'

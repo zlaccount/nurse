@@ -14,16 +14,15 @@
         ref="listGroup"
         :key='index'
       >
-        <h2 class="list-group-title">{{group.time}}</h2>
+        <h2 class="list-group-title">{{group.year}}</h2>
         <ul>
           <li
             @click="selectItem(group,item)"
-            v-for="(item,index) in group.list"
+            v-for="(item,index) in group.month"
             class="list-group-item"
             :key='index'
           >
-
-            <span class="name">{{item.time}}</span>
+            <span class="name">{{item}}</span>
           </li>
         </ul>
       </li>
@@ -83,15 +82,15 @@ export default {
   computed: {
     shortcutList() {
       return this.data.map((group) => {
-        console.log(group.time)
-        return group.time
+        // console.log(group.time)
+        return group.year
       })
     },
     fixedTitle() {
       if (this.scrollY > 0) {
         return ''
       }
-      return this.data[this.currentIndex] ? this.data[this.currentIndex].time : ''
+      return this.data[this.currentIndex] ? this.data[this.currentIndex].year : ''
     }
   },
   methods: {
@@ -235,10 +234,10 @@ export default {
   }
 
   .list-shortcut {
-    position: fixed;
+    position: absolute;
     z-index: 30;
     left: 0;
-    top: 130px;
+    top: 80px;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     width: 26%;

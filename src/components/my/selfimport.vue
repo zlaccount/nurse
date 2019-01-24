@@ -50,7 +50,7 @@
     <div class="serviceIsShow">
       <van-dialog
         v-model="serviceIsShow"
-        show-cancel-button
+        :show-cancel-button=true
         :before-close="beforeClose"
         confirm-button-text="呼叫"
       >
