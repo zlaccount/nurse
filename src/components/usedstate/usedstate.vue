@@ -13,39 +13,23 @@
           @click="selectItem(item)"
         >
           <div class="gray"></div>
-          <van-cell
-            v-if="item.lockState == 0"
-            value="未知异常"
-            value-class="itemFinished"
+          <div
+            v-for="(i,index) in state"
+            :key="index"
           >
-            <template slot="title">
-              <div class="custom-text">
-                订单编号 : {{ item.bedCode }}
-              </div>
-            </template>
-          </van-cell>
-          <van-cell
-            v-if="item.lockState == 1"
-            value="开启"
-            value-class="itemWaitPay"
-          >
-            <template slot="title">
-              <div class="custom-text">
-                订单编号 : {{ item.bedCode }}
-              </div>
-            </template>
-          </van-cell>
-          <van-cell
-            v-if="item.lockState == 2"
-            value="关闭"
-            value-class="itemAudit"
-          >
-            <template slot="title">
-              <div class="custom-text">
-                订单编号 : {{ item.bedCode }}
-              </div>
-            </template>
-          </van-cell>
+            <van-cell
+              v-if="item.lockState == index"
+              :value="i.s"
+              :value-class="item.lockState==1?'itemFinished':item.lockState==2?'':itemWaitPay"
+            >
+              <template slot="title">
+                <div class="custom-text">
+                  订单编号: {{ item.bedCode }}
+                </div>
+              </template>
+            </van-cell>
+          </div>
+
           <div class="detail">
             <van-cell>
               <template slot="title">
@@ -57,9 +41,6 @@
                 </div>
                 <div class="custom-text">
                   开始时间 : {{ item.startTime }}
-                </div>
-                <div class="custom-text">
-                  结束时间 : {{ item.endTime }}
                 </div>
                 <div class="custom-text">
                   时长 : {{ item.serviceTime }}
@@ -100,7 +81,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      state: [{ s: "未知异常" }, { s: "正常开启" }, { s: "关闭" }, { s: "未启用" }, { s: "电量不足" }, { s: "流量不足" }, { s: "非法开启" }, { s: "电源关闭" }, { s: "维修中" }]
+    }
   },
   created() {
     /* setTimeout(() => {

@@ -1,7 +1,7 @@
 export default [{
   name: '正常开启',
   icon: '',
-  value: 'compositor',
+  value: '',
   showTabHeader: false,
   defaultIcon: '',
   selectIcon: '',
@@ -13,12 +13,12 @@ export default [{
     detailList: [{
       name: '正常开启',
       icon: '',
-      value: '0',
+      value: '1',
       selectIndex: 0
     }, {
       name: '非法开启',
       icon: '',
-      value: '1',
+      value: '6',
       selectIndex: 1
     }, {
       name: '关闭',
@@ -30,7 +30,7 @@ export default [{
 }, {
   name: '使用时间',
   icon: '',
-  value: 'compositor',
+  value: '',
   showTabHeader: false,
   defaultIcon: '',
   selectIcon: '',
@@ -42,34 +42,34 @@ export default [{
     detailList: [{
       name: '0~3小时',
       icon: '',
-      value: '0',
-      selectIndex: 0
+      value: '0-3',
+      selectIndex: 3
     }, {
       name: '3~6小时',
       icon: '',
-      value: '1',
-      selectIndex: 1
+      value: '3-6',
+      selectIndex: 4
     }, {
       name: '6~9小时',
       icon: '',
-      value: '2',
-      selectIndex: 2
+      value: '6-9',
+      selectIndex: 5
     }, {
       name: '9~12小时',
       icon: '',
-      value: '2',
-      selectIndex: 2
+      value: '9-12',
+      selectIndex: 6
     }, {
       name: '12小时以上',
       icon: '',
-      value: '2',
-      selectIndex: 2
+      value: '12',
+      selectIndex: 7
     }]
   }]
 }, {
   name: '电池电量',
   icon: '',
-  value: 'compositor',
+  value: '',
   showTabHeader: false,
   defaultIcon: '',
   selectIcon: '',
@@ -81,24 +81,24 @@ export default [{
     detailList: [{
       name: '20%以下',
       icon: '',
-      value: '0',
-      selectIndex: 0
+      value: '20%',
+      selectIndex: 8
     }, {
       name: '50%以下',
       icon: '',
-      value: '1',
-      selectIndex: 1
+      value: '50%',
+      selectIndex: 9
     }, {
       name: '50%以上',
       icon: '',
-      value: '2',
-      selectIndex: 2
+      value: '50%',
+      selectIndex: 10
     }]
   }]
 }, {
   name: '流量',
   icon: '',
-  value: 'compositor',
+  value: '',
   showTabHeader: false,
   defaultIcon: '',
   selectIcon: '',
@@ -110,18 +110,18 @@ export default [{
     detailList: [{
       name: '100b',
       icon: '',
-      value: '0',
-      selectIndex: 0
+      value: '100b',
+      selectIndex: 11
     }, {
       name: '100kb',
       icon: '',
-      value: '1',
-      selectIndex: 1
+      value: '100kb',
+      selectIndex: 12
     }, {
       name: '100mb',
       icon: '',
-      value: '2',
-      selectIndex: 2
+      value: '100mb',
+      selectIndex: 13
     }]
   }]
 }, ]

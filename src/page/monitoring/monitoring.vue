@@ -45,7 +45,14 @@ export default {
     //这里存放数据
     return {
       barMenus: barMenus,
-      orderData: []
+      orderData: [],
+      currentPage: "1",
+      pageSize: "10",
+      lockState: '',
+      bedEnergy: '',
+      bedFlow: '',
+      serviceTime: '',
+      bedCode: '',
     };
   },
   //监听属性 类似于data概念
@@ -80,25 +87,79 @@ export default {
       // console.log(v);
     },
     handleChangeMainItem(v) {
-      console.log(v);
+      var arr = []
+      for (let i in v) {
+        arr.push(v[i]); //属性
+      }
+      console.log(arr[0].selectIndex);
+
+      switch (arr[0].selectIndex) {
+        case 0:
+          var lockState = arr[0].value
+          break;
+        case 1:
+          var lockState = arr[0].value
+          break;
+        case 2:
+          var lockState = arr[0].value
+          break;
+        case 3:
+          var serviceTime = arr[0].value
+          break;
+        case 4:
+          var serviceTime = arr[0].value
+          break;
+        case 5:
+          var serviceTime = arr[0].value
+          break;
+        case 6:
+          var serviceTime = arr[0].value
+          break;
+        case 7:
+          var serviceTime = arr[0].value
+          break;
+        case 8:
+          var bedEnergy = arr[0].value
+          var bedEnergyState = 0
+          break;
+        case 9:
+          var bedEnergy = arr[0].value
+          var bedEnergyState = 0
+          break;
+        case 10:
+          var bedEnergy = arr[0].value
+          var bedEnergyState = 1
+          break;
+        case 11:
+          var bedFlow = arr[0].value
+          break;
+        case 12:
+          var bedFlow = arr[0].value
+          break;
+        case 13:
+          var bedFlow = arr[0].value
+          break;
+      }
+      monitoring(this.currentPage, this.pageSize, lockState, bedEnergyState, bedEnergy, bedFlow, serviceTime, this.bedCode).then(res => {
+        if (res.errcode * 1 === ERR_OK) {
+          this.orderData = res.list;
+          var lockState = ''
+          var bedEnergyState = ''
+          var bedEnergy = ''
+          var bedFlow = ''
+          var serviceTime = ''
+        }
+      })
     },
     changeData(v) {
-      console.log(v);
     },
     _getData() {
-
-      this._monitoring();
-    },
-    _monitoring() {
-      var bedCode = "";
-      var currentPage = "1";
-      var pageSize = "10";
-      monitoring(currentPage, pageSize, bedCode).then(res => {
+      monitoring(this.currentPage, this.pageSize, this.lockState, this.bedEnergy, this.bedEnergyState, this.bedFlow, this.serviceTime, this.bedCode).then(res => {
         if (res.errcode * 1 === ERR_OK) {
           this.orderData = res.list;
         }
-      });
-    }
+      })
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
