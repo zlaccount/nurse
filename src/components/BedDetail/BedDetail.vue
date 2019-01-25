@@ -78,7 +78,7 @@
           <div class="confirmCon">
             <div class="middleImg">
               <img
-                src="../../../static/img/invite@3x.png"
+                src="../../../static/img/jiebang.png"
                 class="more"
                 @click="wx()"
               />
@@ -232,12 +232,11 @@ export default {
         text-align: left;
 
         .middleImg {
-          width: 100px;
+          width: 72px;
           margin: 20px auto 0;
 
           img {
-            width: 100px;
-            height: 100px;
+            width: 72px;
           }
         }
 

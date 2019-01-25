@@ -56,10 +56,9 @@
       >
         <h4>温馨提示</h4>
         <p>客服在线时间为正常工作日：上午8:30-12:00，下午13:30-17:00</p>
-        <a
-          @click="callphone"
+        <!-- <a
           :href="'tel:' + phone"
-        >{{ phone }}</a>
+        >{{ phone }}</a> -->
       </van-dialog>
     </div>
   </div>
@@ -195,14 +194,11 @@ export default {
     },
     beforeClose(action, done) {
       if (action === "confirm") {
-        this.callphone();
+        window.location.href = 'tel://' + this.phone
         setTimeout(done, 1000);
       } else {
         done();
       }
-    },
-    callphone() {
-      console.log("拨打电话");
     },
     // 使用说明
     onClickLeft() {
