@@ -17,10 +17,10 @@
         <h2 class="list-group-title">{{group.year}}</h2>
         <ul>
           <li
-            @click="selectItem(group,item)"
-            v-for="(item,index) in group.month"
+            @click="selectItem(group,j)"
+            v-for="(item,j) in group.month"
             class="list-group-item"
-            :key='index'
+            :key='j'
           >
             <span class="name">{{item}}</span>
           </li>

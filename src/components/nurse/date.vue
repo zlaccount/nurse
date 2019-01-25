@@ -53,11 +53,8 @@ export default {
     // },
     confirm(value) {
       this.showDatePicker = false
-      // this.setDateTime(value.date)
-      common.$emit('selectedTime', value.date);
+      common.$emit('selectedTime', ["日统计", value.date]);
       this.$router.go(-1);
-      // console.log(value.date)
-      // this.selectedDate = value
     },
     cancel() {
       this.showDatePicker = false

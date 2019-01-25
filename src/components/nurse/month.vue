@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       showMonthPicker: true,
-      objData: [{ 'year': '2019', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] },{ 'year': '2018', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }, { 'year': '2017', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }, { 'year': '2016', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }],
+      objData: [{ 'year': '2019', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }, { 'year': '2018', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }, { 'year': '2017', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }, { 'year': '2016', 'month': ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] }],
       monthData: [],
     }
   },
@@ -32,11 +32,18 @@ export default {
   },
   methods: {
     selectOrder(group, item) {
-      common.$emit('selectedTime', group.time + "-" + item.time);
+      var result = group.year + "-" + this.toDub(item + 1)
+      common.$emit('selectedTime', ["月统计", result]);
       this.$router.go(-1);
       this.showMonthPicker = false
     },
-
+    toDub(n) { // 补0操作
+      if (n < 10) {
+        return '0' + n
+      } else {
+        return '' + n
+      }
+    },
     _getData() {
       this._bedStatistical()
     },

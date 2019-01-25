@@ -22,7 +22,7 @@
         <van-button
           size="large"
           @click="selectDate"
-        >日统计<span class="title">{{ selectTime }}</span><i> </i>
+        >{{name}}<span class="title">{{ selectTime }}</span><i> </i>
         </van-button>
         <van-cell-group>
           <van-cell title="总计(管辖区内两张陪护床)" />
@@ -72,7 +72,8 @@ export default {
       second: "",
       money: "",
       selectTime: "",
-      backDate: ""
+      backDate: "",
+      name:'日统计'
     };
   },
 
@@ -87,9 +88,10 @@ export default {
       common.$on(
         "selectedTime",
         function (data) {
-          console.log(data)
-          this.selectTime = data;
+          this.selectTime = data[1];
+          this.name=data[0]
           this._bedSelectTime(this.selectTime);
+          return false
         }.bind(this)
       );
       this.selectTime = now[0];

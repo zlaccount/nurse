@@ -40,8 +40,7 @@ export default {
       this._bedStatistical()
     },
     selectItem(item) {
-      console.log(item)
-      common.$emit('selectedTime', item);
+      common.$emit('selectedTime', ["年统计", item]);
       this.$router.go(-1);
     },
     _bedStatistical(time) {
