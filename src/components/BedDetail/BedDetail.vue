@@ -45,7 +45,7 @@
         </van-cell>
         <van-cell
           title="使用时间"
-          :value="res.serviceTime"
+          :value="serviceTime"
         >
         </van-cell>
         <van-cell
@@ -147,17 +147,17 @@ export default {
         t += sec
       }
       return t;
-      console.log(t)
     },
     _monitoring() {
       var lockState = this.$route.query.lockState;
       var bedCode = this.$route.query.id;
       monitoring(this.currentPage, this.pageSize, lockState, this.bedEnergyState, this.bedEnergy, this.bedFlow, this.serviceTime, bedCode).then(res => {
-        var arr = []
-        for (let i in res) {
-          arr.push(res[i]); //属性
-        }
-        this.res = (arr[0])[0]
+        this.serviceTime = this.sec_to_time(res.list[0].serviceTime)
+        // var arr = []
+        // for (let i in res) {
+        //   arr.push(res[i]); //属性
+        // }
+        this.res = res.list[0]
         // console.log(sec_to_time(res.serviceTime))
       }
       );
@@ -220,6 +220,10 @@ export default {
   bottom: 0;
   z-index: 152;
   background: #fff;
+
+  .custom-text {
+    color: #999;
+  }
 
   .certainPop {
     .van-dialog {

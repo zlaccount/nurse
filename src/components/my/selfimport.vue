@@ -56,9 +56,6 @@
       >
         <h4>温馨提示</h4>
         <p>客服在线时间为正常工作日：上午8:30-12:00，下午13:30-17:00</p>
-        <!-- <a
-          :href="'tel:' + phone"
-        >{{ phone }}</a> -->
       </van-dialog>
     </div>
   </div>
@@ -126,7 +123,7 @@ export default {
   methods: {
     // 退出重新登录
     loginBack() {
-      this.indexIsHide = 0;
+      this.loginType = 1;
       this.accountImage = "";
       this.accountName = "";
       window.localStorage.clear();
