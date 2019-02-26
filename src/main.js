@@ -3,6 +3,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import YDUI from 'vue-ydui';
+import 'vue-ydui/dist/ydui.px.css'
+import 'vue-ydui/dist/ydui.base.css';
 
 import fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
@@ -24,13 +27,13 @@ import { Popup } from 'vant'
 import { Field } from 'vant'
 import { Toast } from 'vant'
 import { Uploader } from 'vant'
-import { ImagePreview } from 'vant'
 import { List } from 'vant'
 import { Tab, Tabs } from 'vant'
 import { Area } from 'vant'
 import { Checkbox, CheckboxGroup } from 'vant'
 import { Collapse, CollapseItem } from 'vant';
 
+Vue.use(YDUI);
 Vue.use(Swipe).use(SwipeItem)
 Vue.use(Lazyload)
 Vue.use(Tabbar).use(TabbarItem)

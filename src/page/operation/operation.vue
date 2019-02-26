@@ -4,13 +4,18 @@
       fixed
       title="绑定陪护床"
     > </van-nav-bar>
-    <van-steps
-      :active="stepsActive"
-      active-color="#4FD6BC"
+    <div class="topblank"></div>
+    <yd-step
+      :current="stepsActive"
+      current-color="#4fd6bc"
     >
-      <van-step>扫码 </van-step>
-      <van-step>绑定</van-step>
-    </van-steps>
+      <yd-step-item>
+        <span slot="bottom">扫码</span>
+      </yd-step-item>
+      <yd-step-item>
+        <span slot="bottom">绑定</span>
+      </yd-step-item>
+    </yd-step>
     <!-- 开锁方式 -->
     <div class="way">
       <van-popup v-model="openLockIsShow">
@@ -51,12 +56,15 @@
 </template>
 
 <script>
+import { ERR_OK } from "api/config";
+import wx from "weixin-js-sdk";
+import { RichScan, bedOperation } from "api/nurse";
 export default {
   components: {},
   data() {
     return {
       // 初始化数据
-      stepsActive: 0,
+      stepsActive: 1,
       serialIsShow: false, // 是否编号开锁
       openLockIsShow: true,
       dataType: 1
@@ -67,23 +75,64 @@ export default {
   methods: {
     // 输入密码开锁
     showIndexChild(val) { },
-    _getData() {
-
-    },
+    _getData() { },
     wx() {
-      console.log('微信扫描窗口')
+      const vm = this;
+      if (localStorage.getItem("nurseId") != null) {
+        var url = location.href.split("#")[0];
+        // 扫一扫
+        RichScan(url).then(res => {
+          let sign = res; //后端返回的微信的数据
+          wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: sign.appId, // 必填，公众号的唯一标识
+            timestamp: sign.timestamp, // 必填，生成签名的时间戳
+            nonceStr: sign.nonce_str, // 必填，生成签名的随机串
+            signature: sign.signature, // 必填，签名，见附录1
+            jsApiList: ["scanQRCode", "openLocation", "getLocation"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          });
+          wx.ready(function () {
+            wx.scanQRCode({
+              needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果
+              scanType: ["qrCode"],
+              success: function (res) {
+                var id = ''
+                var result = res.resultStr;
+                var way = 0
+                var floor = ''
+                var room = ''
+                bedOperation(id, result, way, floor, room).then(res => {
+                  if (res === 3) {
+                    Toast('编号已绑定，请勿重新绑定');
+                    return false
+                  }
+                  setTimeout(() => {
+                    vm.$router.push({
+                      name: 'bindingroom',
+                      params: {
+                        id: result
+                      }
+                    })
+                  }, 1000)
+                })
+              }
+            });
+          });
+        });
+      } else {
+        this.$toast("您还未登录");
+      }
     },
     handinput() {
-      var nurseId = localStorage.getItem("nurseId")
+      var nurseId = localStorage.getItem("nurseId");
       if (nurseId != null) {
         this.$router.push({
           path: `/operation/serial`
-        })
+        });
+      } else {
+        this.$toast("您还未登录");
       }
-      else {
-        this.$toast("您还未登录")
-      }
-    }
+    },
   },
   created() {
     this._getData();
@@ -99,24 +148,7 @@ export default {
 };
 </script>
 <style scoped lang="stylus">
-.van-steps {
-  width: 40%;
-  margin: 36px auto 0;
-  background: #f5f3f4;
-  height: 72px;
-
-  .van-steps__items .van-steps__items--alone {
-    height: 70px !important;
-  }
-
-  .van-step__title {
-    position: relative;
-    top: 50px;
-  }
-
-  .van-step--horizontal {
-    line-height: 100px;
-    height: 60px;
-  }
+.yd-step {
+  padding-top: 30px;
 }
 </style>

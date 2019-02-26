@@ -6,23 +6,20 @@ import axios from 'axios'
 // 护士端
 /* 陪护床床号所有数据 */
 
-// export function bedAllData(serial) {
-//   const url = 'bed/manager/queryList'
-//   const data = Object.assign({}, {
-//     currentPage: 1,
-//     pageSize: '10',
-//     hospitalId: localStorage.getItem("hospitalId"),
-//     subName: localStorage.getItem("subName"),
-//     chaperonageBedCode: serial
-//   })
-
-//   return axios.get(url, {
-//     params: data
-//   }).then((res) => {
-//     return Promise.resolve(res.data)
-//   })
-// }
-
+// 扫一扫
+export function RichScan(LocationHref) {
+  const url = "RichScan";
+  const data = Object.assign({}, {
+    url: LocationHref
+  });
+  return axios
+    .get(url, {
+      params: data
+    })
+    .then(res => {
+      return Promise.resolve(res.data);
+    });
+}
 // 陪护床新增、修改、解绑接口
 export function bedOperation(id,serial, way, room,floor ) {
   const url = 'bed/manager/bedInfoSave'

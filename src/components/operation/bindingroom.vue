@@ -146,9 +146,9 @@ export default {
     .van-cell-group {
       height: 35px;
 
-      .van-field {
-        padding: 5px 10px;
-      }
+      // .van-field {
+      //   padding: 5px 10px;
+      // }
     }
 
     p {

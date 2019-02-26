@@ -71,26 +71,32 @@ export default {
       that.curVal = curVal
       // 清空键盘值
       if (that.curVal.length === that.keyLis.length) {
+        var id = ''
         var val = that.curVal * 1
         var way = 0
         var floor = ''
         var room = ''
-        var id = ''
         // 判断是否已绑定
         bedOperation(id, val, way, floor, room).then(res => {
           if (res === 3) {
             Toast('编号已绑定，请勿重新绑定');
             return false
           }
-          this.$router.push({
-            name: 'bindingroom',
-            params: {
-              id: val
-            }
-          })
+          setTimeout(() => {
+
+            this.$router.push({
+              name: 'bindingroom',
+              params: {
+                id: val
+              }
+            })
+            setTimeout(() => {
+              // 清空
+              that.keyValue = []
+            }, 1000)
+          }, 1000)
         })
-        // 清空
-        that.keyValue = []
+
       }
     }
   },
