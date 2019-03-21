@@ -31,7 +31,7 @@
             v-if="type == 1"
           >
             <p>总使用次数：{{ amount }}次</p>
-            <p>总使用时间：{{ second }}</p>
+            <p>总使用时间：{{ sec_to_time(second) }}</p>
           </div>
           <div
             class="con"
@@ -123,7 +123,30 @@ export default {
           id: 1
         }
       });
-    }
+    },
+     sec_to_time(s) {
+      var t;
+      if (s > -1) {
+        var hour = Math.floor(s / 3600);
+        var min = Math.floor(s / 60) % 60;
+        var sec = s % 60;
+        if (hour < 10) {
+          t = "0" + hour + ":";
+        } else {
+          t = hour + ":";
+        }
+
+        if (min < 10) {
+          t += "0";
+        }
+        t += min + ":";
+        if (sec < 10) {
+          t += "0";
+        }
+        t += sec;
+      }
+      return t;
+    },
   },
   created() {
     this._getData();

@@ -18,7 +18,7 @@
         <van-cell
           v-if="res.lockState == index"
           :value="i.s"
-          :value-class="res.lockState==1?'itemFinished':res.lockState==2?'':itemWaitPay"
+          :value-class="res.lockState==1?'itemFinished':res.lockState==2?'':'itemWaitPay'"
         >
           <template slot="title">
             <div class="custom-text">

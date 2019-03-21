@@ -195,7 +195,7 @@ export default {
 
 .list-view {
   position: relative;
-  width: 73%;
+  // width: 73%;
   height: 100%;
   overflow: hidden;
   background: #f5f3f4;

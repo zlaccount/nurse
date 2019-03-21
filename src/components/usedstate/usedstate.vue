@@ -20,7 +20,7 @@
             <van-cell
               v-if="item.lockState == index"
               :value="i.s"
-              :value-class="item.lockState==1?'itemFinished':item.lockState==2?'':itemWaitPay"
+              :value-class="item.lockState==1?'itemFinished':item.lockState==2?'':'itemWaitPay'"
             >
               <template slot="title">
                 <div class="custom-text">
@@ -43,7 +43,7 @@
                   开始时间 : {{ item.startTime }}
                 </div>
                 <div class="custom-text">
-                  时长 : {{ item.serviceTime }}
+                  时长 : {{ sec_to_time(item.serviceTime) }}
                 </div>
                 <div class="custom-text">
                   电量 : {{ item.bedEnergy }}
@@ -102,7 +102,30 @@ export default {
       }
     },
     _getData() {
-    }
+    },
+     sec_to_time(s) {
+      var t;
+      if (s > -1) {
+        var hour = Math.floor(s / 3600);
+        var min = Math.floor(s / 60) % 60;
+        var sec = s % 60;
+        if (hour < 10) {
+          t = "0" + hour + ":";
+        } else {
+          t = hour + ":";
+        }
+
+        if (min < 10) {
+          t += "0";
+        }
+        t += min + ":";
+        if (sec < 10) {
+          t += "0";
+        }
+        t += sec;
+      }
+      return t;
+    },
   },
   computed: {
   },
