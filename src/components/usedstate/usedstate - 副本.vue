@@ -34,7 +34,7 @@
             <van-cell>
               <template slot="title">
                 <div class="custom-text">
-                  陪护床编号1 : {{ item.bedCode }}
+                  陪护床编号 : {{ item.bedCode }}
                 </div>
                 <div class="custom-text">
                   病床号 : {{ item.bedNumber }}

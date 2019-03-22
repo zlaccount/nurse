@@ -33,6 +33,7 @@ import { Area } from 'vant'
 import { Checkbox, CheckboxGroup } from 'vant'
 import { Collapse, CollapseItem } from 'vant';
 
+
 Vue.use(YDUI);
 Vue.use(Swipe).use(SwipeItem)
 Vue.use(Lazyload)

@@ -20,10 +20,22 @@
           @changeSelect="changeData"
         >
         </filter-bar>
-        <used-state
-          :allOrder="orderData"
-          @select="selectOrder"
-        ></used-state>
+        <!--  -->
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text=""
+          @load="onLoad"
+        >
+          <yd-layout>
+            <div>
+              <used-state
+                :allOrder="orderData"
+                @select="selectOrder"
+              ></used-state>
+            </div>
+          </yd-layout>
+        </van-list>
         <router-view></router-view>
       </div>
     </div>
@@ -49,10 +61,13 @@ export default {
       orderData: [],
       currentPage: "1",
       pageSize: "10",
+      pageIndex: 0,
       lockState: '',
       bedEnergy: '',
       bedFlow: '',
       serviceTime: '',
+      loading: false,
+      finished: false
     };
   },
   //监听属性 类似于data概念
@@ -141,41 +156,52 @@ export default {
           var bedFlow = arr[0].value
           break;
       }
-      monitoring(this.currentPage, this.pageSize, lockState, bedEnergyState, bedEnergy, bedFlow, serviceTime).then(res => {
-        if (res.errcode * 1 === ERR_OK) {
-          this.orderData = res.list;
-          var lockState = ''
-          var bedEnergyState = ''
-          var bedEnergy = ''
-          var bedFlow = ''
-          var serviceTime = ''
-        } else if (res.errcode * 1 === 1) {
-          this.orderData = '';
-          // this.$toast("暂无数据")
-        }
+      setTimeout(() => {
+
+        monitoring(this.currentPage, this.pageSize, lockState, bedEnergyState, bedEnergy, bedFlow, serviceTime).then(res => {
+          if (res.errcode * 1 === ERR_OK) {
+            this.orderData = this.orderData.concat(res.list)
+            var lockState = ''
+            var bedEnergyState = ''
+            var bedEnergy = ''
+            var bedFlow = ''
+            var serviceTime = ''
+          } else if (res.errcode * 1 === 1) {
+            this.orderData = [];
+            // this.$toast("暂无数据")
+          }
+        }, 500);
       })
     },
     changeData(v) {
+    },
+    onLoad() {
+      setTimeout(() => {
+        this.pageIndex += 1;
+        monitoring(this.pageIndex, this.pageSize, this.lockState, this.bedEnergy, this.bedEnergyState, this.bedFlow, this.serviceTime).then(res => {
+          if (res.errcode * 1 === ERR_OK) {
+            this.orderData = this.orderData.concat(res.list)
+            this.loading = false; // 加载状态结束
+            // 数据全部加载完成
+            if (res.list.length < 10) {
+              this.finished = true;
+            }
+          }
+        })
+
+      }, 500);
     },
     _getData() {
       common.$on(
         "refresh",
         function (data) {
           console.log("refresh", data)
-          this._monitoring()
+          this.onLoad()
           return false
-
         }.bind(this)
       );
-      this._monitoring()
     },
-    _monitoring() {
-      monitoring(this.currentPage, this.pageSize, this.lockState, this.bedEnergy, this.bedEnergyState, this.bedFlow, this.serviceTime).then(res => {
-        if (res.errcode * 1 === ERR_OK) {
-          this.orderData = res.list;
-        }
-      })
-    }
+
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
